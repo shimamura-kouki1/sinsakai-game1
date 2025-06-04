@@ -19,11 +19,16 @@ namespace Text.Inheritance
             //整数のhp
         private int _hp;
 
+        [SerializeField, Header("移動速度")]
+        private float _Speed;
+
         [SerializeField, Header("ジャンプ速度")]
         private float _jumpSpeed;
 
         private void Start()
         {
+            Application.targetFrameRate = 60;
+
             _ri = GetComponent<Rigidbody2D>();
 
             isJumping = false;
@@ -36,13 +41,13 @@ namespace Text.Inheritance
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 Vector2 pos = transform.position;
-                pos.x += 0.05f;
+                pos.x += _Speed;
                 transform.position = pos;
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Vector2 pos = transform.position;
-                pos.x -= 0.05f;
+                pos.x -= _Speed;
                 transform.position = pos;
             }
 
