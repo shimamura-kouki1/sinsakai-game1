@@ -64,6 +64,11 @@ namespace Text.Inheritance
                 isJumping = true;
             }
 
+            /*if(Input.GetKey(KeyCode.E))
+            {
+                transform.position = new Vector3(0, 0,10);
+            }*/
+
             if (transform.position.y < -5)
             {
                 Destroy(gameObject);
@@ -71,7 +76,17 @@ namespace Text.Inheritance
 
         }
 
-            //Collision2D ->    衝突したときに実行
+        void HideParentOnly(GameObject parent)
+        {
+            Renderer renderer = parent.GetComponent<Renderer>();
+            if (Input.GetKey(KeyCode.E))
+            {
+                renderer.enabled = false; // 親オブジェクトを非表示
+            }
+        }
+
+
+        //Collision2D ->    衝突したときに実行
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if(collision.gameObject.tag == "Enemy")
