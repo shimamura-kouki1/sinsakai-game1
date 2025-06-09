@@ -9,7 +9,7 @@ using static System.Object;
 namespace Text.Inheritance
 {
 
-    public class Move : MonoBehaviour
+    public class Player : MonoBehaviour
     {
         public bool isJumping;
         //[SerializeField] float _power = 5f;

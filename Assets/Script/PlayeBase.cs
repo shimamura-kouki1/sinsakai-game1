@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Text.Inheritance
 {
 
-    public class PlayeBase : Move
+    public class PlayeBase : Player
     {
 
         

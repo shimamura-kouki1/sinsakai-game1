@@ -31,9 +31,9 @@ public class Enemy : MonoBehaviour
         _rig.velocity = new Vector2(Vector2.left.x * _moveSpeed, _rig.velocity.y);
     }
 
-    public void PlayerDamage(Move move)
+    public void PlayerDamage(Player player)
     {
             //Moveの中にあるDamageのメッソドを持ってきて、引数の中に自分の攻撃力を入れる
-        move.Damage(_attackPower);
+        player.Damage(_attackPower);
     }
 }
