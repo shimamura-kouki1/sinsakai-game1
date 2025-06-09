@@ -63,6 +63,12 @@ namespace Text.Inheritance
                 //Jumpをしたらtrueになる
                 isJumping = true;
             }
+
+            if (transform.position.y < -5)
+            {
+                Destroy(gameObject);
+            }
+
         }
 
             //Collision2D ->    衝突したときに実行
@@ -101,11 +107,12 @@ namespace Text.Inheritance
             if (transform.position.y - (halfScaleY - 0.1f) >= enemy.transform.position.y + (enemyHalfScaleY - 0.1f))
             {
                 Destroy(enemy);
+                Score.score += 100;
 
-                    //上方向(Vector2.up)にnew Vector2(0,5.5f)分加速させる。
-                    //AddForceとはオブジェクトを加速させる処理、「ForceMode2D」の設定で加速の仕方が変わる
-                    //「ForceMode2D」は2種類あり、「Force」は初速が遅く、徐々に加速していく処理・「impulse」は初速が早く、徐々に減速していく処理
-               
+                //上方向(Vector2.up)にnew Vector2(0,5.5f)分加速させる。
+                //AddForceとはオブジェクトを加速させる処理、「ForceMode2D」の設定で加速の仕方が変わる
+                //「ForceMode2D」は2種類あり、「Force」は初速が遅く、徐々に加速していく処理・「impulse」は初速が早く、徐々に減速していく処理
+
                 _ri.AddForce(Vector2.up * new Vector2(0,15f),ForceMode2D.Impulse);
             }
                 //if文以外の場所で接触した場合処理する
@@ -114,6 +121,7 @@ namespace Text.Inheritance
                 //EnemyobujectからPlayerDamageメソッドが呼ばれる。
                 //(this)とは自分のクラスを変数として使う。今回はMoveクラスを入れている
                 enemy.GetComponent<Enemy>().PlayerDamage(this);
+            
             }
 
 

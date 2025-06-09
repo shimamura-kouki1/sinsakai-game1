@@ -23,13 +23,14 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _Move();
+        _rig.velocity = new Vector2(Vector2.left.x * _moveSpeed, _rig.velocity.y);
+
+        if (transform.position.y < -5)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    private void _Move()
-    {
-        _rig.velocity = new Vector2(Vector2.left.x * _moveSpeed, _rig.velocity.y);
-    }
 
     public void PlayerDamage(Player player)
     {
