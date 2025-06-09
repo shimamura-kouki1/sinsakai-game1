@@ -8,13 +8,15 @@ public class MainManeger : MonoBehaviour
     [SerializeField, Header("ゲームオーバーUI")]
     private GameObject _gameOverUI;
 
+    [SerializeField, Header("ゲームクリアUI")]
+    private GameObject _gameClearUI;
+    
     private GameObject _move;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        _move = FindObjectOfType<PlayeBase>().gameObject;
+        _move = FindObjectOfType<Move>().gameObject;
     }
 
     // Update is called once per frame
@@ -30,5 +32,10 @@ public class MainManeger : MonoBehaviour
         if (_move != null) return;
 
         _gameOverUI.SetActive(true);
+    }
+
+    public void ShowGameClearUI()
+    {
+        _gameClearUI.SetActive(true);
     }
 }

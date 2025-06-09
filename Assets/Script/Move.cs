@@ -78,6 +78,14 @@ namespace Text.Inheritance
                 //falseの場合Jumpを可能にする
                 isJumping = false;
             }
+
+            if(collision.gameObject.tag == ("Goal"))
+            {
+                FindObjectOfType<MainManeger>().ShowGameClearUI();
+                this.enabled = false;    //このスクリプトを非アクティブにする
+               // GetComponent<>().enabled = false;
+            }
+            
         }
 
         private void HitEnemy(GameObject enemy)
@@ -113,7 +121,7 @@ namespace Text.Inheritance
 
         private void _Dead()
         {       //hpが０以下になったら処理
-            if(_hp == 0)
+            if(_hp <= 0)
             {
                 Destroy(gameObject);
             }
