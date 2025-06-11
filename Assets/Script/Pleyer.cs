@@ -121,8 +121,8 @@ namespace Text.Inheritance
                 //-0.1fはめり込んだ時の座標の対処している
             if (transform.position.y - (halfScaleY - 0.1f) >= enemy.transform.position.y + (enemyHalfScaleY - 0.1f))
             {
+                MainManeger.score += 100; //scoreの加算
                 Destroy(enemy);
-                Score.score += 100;
 
                 //上方向(Vector2.up)にnew Vector2(0,5.5f)分加速させる。
                 //AddForceとはオブジェクトを加速させる処理、「ForceMode2D」の設定で加速の仕方が変わる
