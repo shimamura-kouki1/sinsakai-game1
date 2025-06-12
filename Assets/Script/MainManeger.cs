@@ -10,7 +10,7 @@ public class MainManeger : MonoBehaviour
 {
     [SerializeField, Header("スコア")]
     private TextMeshProUGUI _textText;
-    public static int score = 000;
+    public static int score = 0;
 
     [SerializeField, Header("ゲームオーバーUI")]
     private GameObject _gameOverUI;
@@ -24,8 +24,7 @@ public class MainManeger : MonoBehaviour
     void Start()
     {
         _player = FindObjectOfType<Player>().gameObject;
-
-       // _textText.text = "score" + score;
+        score = 0;
     }
 
     // Update is called once per frame
@@ -50,7 +49,6 @@ public class MainManeger : MonoBehaviour
         }
         //gameOverUIが有効になる
         _gameOverUI.SetActive(true); //SetActive = ゲームオブジェクトの有効・無効を切り替える
-        score = 000;
     }
 
     public void ShowGameClearUI()//Playerスクリプト103行目
