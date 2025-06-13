@@ -17,7 +17,13 @@ public class MainManeger : MonoBehaviour
 
     [SerializeField, Header("ゲームクリアUI")]
     private GameObject _gameClearUI;
-    
+
+    [SerializeField,Header("ReStart")]
+    private GameObject reStartButton;
+
+    [SerializeField,Header("ポーズ画面")]
+    private GameObject _pose;
+
     private GameObject _player;
 
     // Start is called before the first frame update
@@ -33,6 +39,8 @@ public class MainManeger : MonoBehaviour
         _ShowGameOverUI();
 
         Score();
+
+        PauseGame();
     }
 
     public void Score()
@@ -54,5 +62,18 @@ public class MainManeger : MonoBehaviour
     public void ShowGameClearUI()//Playerスクリプト103行目
     {　 //↑に同じ　　
         _gameClearUI.SetActive(true);
+    }
+    public void PauseGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+                _pose.SetActive(true);
+                Time.timeScale = 0;
+        }
+        else
+        {
+            // Destroy( _pose );
+            Time.timeScale = 1;
+        }
     }
 }
