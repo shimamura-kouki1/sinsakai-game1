@@ -65,15 +65,14 @@ public class MainManeger : MonoBehaviour
     }
     public void PauseGame()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.Escape))
         {
+                Debug.Log(111);
                 _pose.SetActive(true);
                 Time.timeScale = 0;
         }
-        else
-        {
-            // Destroy( _pose );
-            Time.timeScale = 1;
-        }
+        
     }
 }
+//まとめてコメントアウト　ctrl+K+C
+//まとめてコメントアウト解除　ctrl +K+U

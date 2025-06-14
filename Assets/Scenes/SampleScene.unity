@@ -3325,7 +3325,7 @@ GameObject:
   - component: {fileID: 1320495431}
   - component: {fileID: 1320495430}
   m_Layer: 5
-  m_Name: 'pose '
+  m_Name: Canvas 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3666,7 +3666,7 @@ GameObject:
   - component: {fileID: 1454253338}
   - component: {fileID: 1454253337}
   m_Layer: 5
-  m_Name: Image
+  m_Name: pose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4455,10 +4455,10 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1208915257}
   - {fileID: 987533175}
-  - {fileID: 2131908350}
   - {fileID: 305748962}
   - {fileID: 1248583094}
   - {fileID: 1727204420}
   - {fileID: 1424276474}
   - {fileID: 1513635433}
+  - {fileID: 2131908350}
   - {fileID: 1320495433}
