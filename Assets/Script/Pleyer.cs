@@ -26,7 +26,7 @@ namespace Text.Inheritance
         private float _jumpSpeed;
 
         private void Start()
-        {
+        {   //フレームレートの制限
             Application.targetFrameRate = 60;
 
             _ri = GetComponent<Rigidbody2D>();
@@ -150,7 +150,7 @@ namespace Text.Inheritance
             }
         }
 
-        public void Damage(int damage)//
+        public void Damage(int damage)
         {   
             //Mathf.Max()とは()内のに入れた２つの値のうちから大きいほうを変数に入れる処理
             //_hpに_hpからdamageを引いた数を代入していく。()の中に0が入っているのは0以下の数字が表示されないようにしている。

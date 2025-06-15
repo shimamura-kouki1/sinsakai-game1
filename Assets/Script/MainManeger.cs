@@ -80,8 +80,8 @@ public class MainManeger : MonoBehaviour
     }
 
     public void Choice()
-    {   
-        button = GameObject.Find("Canvas/pose/ReStartButton").GetComponent<Button>();
+    {   //
+        button = GameObject.Find("Canvas/pose/ReStartButton/Button").GetComponent<Button>();
         button.Select();
     }
     public void ReStartButton()
