@@ -26,11 +26,15 @@ public class MainManeger : MonoBehaviour
 
     private GameObject _player;
 
+    Button button;
+
     // Start is called before the first frame update
     void Start()
     {
         _player = FindObjectOfType<Player>().gameObject;
         score = 0;
+
+        ReStartButton();
     }
 
     // Update is called once per frame
@@ -60,18 +64,31 @@ public class MainManeger : MonoBehaviour
     }
 
     public void ShowGameClearUI()//Playerスクリプト103行目
-    {　 //↑に同じ　　
+    {　 　
+        //gameClearUIが有効になる
         _gameClearUI.SetActive(true);
     }
     public void PauseGame()
     {
         if (Input.GetKey(KeyCode.Escape))
         {
-                Debug.Log(111);
+           　　//ポーズ画面をtureにする
                 _pose.SetActive(true);
+            　　//ゲームを一時停止
                 Time.timeScale = 0;
         }
-        
+    }
+
+    public void Choice()
+    {   
+        button = GameObject.Find("Canvas/pose/ReStartButton").GetComponent<Button>();
+        button.Select();
+    }
+    public void ReStartButton()
+    {   //ポーズ画面をfalseに
+        _pose.SetActive(false);
+        //ゲーム進行
+        Time.timeScale = 1;
     }
 }
 //まとめてコメントアウト　ctrl+K+C
