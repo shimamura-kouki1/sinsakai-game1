@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     {
         _rig.velocity = new Vector2(Vector2.left.x * _moveSpeed, _rig.velocity.y);
 
-        if (transform.position.y < -5)
+        if (transform.position.y < -10)
         {
             Destroy(gameObject);
         }

@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class Enemyjup : MonoBehaviour
 {
+    [SerializeField, Header("ˆÚ“®‘¬“x")]
+    private float _moveSpeed;
+
+    [SerializeField, Header("UŒ‚—Í")]
+    //enemy‚ÌUŒ‚—Í‚ğ“ü‚ê‚é‚½‚ß‚Ì•Ï”
+    private int _attackPower;
+
+    private Rigidbody2D _rig;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _rig = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        _rig.velocity = new Vector2(Vector2.left.x * _moveSpeed, _rig.velocity.y);
+
+        if (transform.position.y < -10)
+        {
+            Destroy(gameObject);
+        }
     }
 }
