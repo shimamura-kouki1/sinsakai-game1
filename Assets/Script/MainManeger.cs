@@ -34,7 +34,7 @@ public class MainManeger : MonoBehaviour
         _player = FindObjectOfType<Player>().gameObject;
         score = 0;
 
-        ReStartButton();
+        //ReStartButton(); 92行目
     }
 
     // Update is called once per frame
@@ -70,12 +70,17 @@ public class MainManeger : MonoBehaviour
     }
     public void PauseGame()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.T))
         {
            　　//ポーズ画面をtureにする
                 _pose.SetActive(true);
             　　//ゲームを一時停止
                 Time.timeScale = 0;
+        }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            _pose.SetActive(false);
+            Time.timeScale = 1;
         }
     }
 
@@ -84,12 +89,12 @@ public class MainManeger : MonoBehaviour
         button = GameObject.Find("Canvas/pose/ReStartButton/Button").GetComponent<Button>();
         button.Select();
     }
-    public void ReStartButton()
+    /*public void ReStartButton()
     {   //ポーズ画面をfalseに
         _pose.SetActive(false);
         //ゲーム進行
         Time.timeScale = 1;
-    }
+    }*/
 }
 //まとめてコメントアウト　ctrl+K+C
 //まとめてコメントアウト解除　ctrl +K+U

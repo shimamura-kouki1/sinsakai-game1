@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        //float sin = Mathf.Sin(Time.time);
+        //this.transform.position = new Vector3(0, sin, 0);
     }
 
 
