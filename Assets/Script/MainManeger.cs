@@ -19,7 +19,7 @@ public class MainManeger : MonoBehaviour
     private GameObject _gameClearUI;
 
     [SerializeField,Header("ReStart")]
-    private GameObject reStartButton;
+    private GameObject _reStartButton;
 
     [SerializeField,Header("ポーズ画面")]
     private GameObject _pose;
@@ -40,7 +40,7 @@ public class MainManeger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _ShowGameOverUI();
+        ShowGameOverUI();
 
         Score();
 
@@ -52,7 +52,7 @@ public class MainManeger : MonoBehaviour
         _textText.text = ("Score" + score);
     }
 
-    private void _ShowGameOverUI()
+    private void ShowGameOverUI()
     {
         //_playerのGameObjectがnullの時に実行される
         if (_player != null)

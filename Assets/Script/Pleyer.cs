@@ -106,7 +106,18 @@ namespace Text.Inheritance
                 this.enabled = false;    //このスクリプトを非アクティブにする
                // GetComponent<>().enabled = false;
             }
-            
+        }
+        private void OnTriggerEnter2D (Collider2D collider)//オブジェクトがすり抜けた時の処理
+        {    //Coinをすり抜けたら
+            { if(collider.gameObject.tag == ("Coin"))
+
+                //MainManegerからScoreを探し出す
+                FindObjectOfType<MainManeger>().Score();
+            　　//scoreに100加算する
+                MainManeger.score += 100;
+                //その後、オブジェクトを破棄する
+                Destroy(collider.gameObject);
+            }
         }
 
         private void HitEnemy(GameObject enemy)
