@@ -31,6 +31,9 @@ public class MainManeger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //フレームレートの制限
+        Application.targetFrameRate = 60;
+
         _player = FindObjectOfType<Player>().gameObject;
         score = 0;
 

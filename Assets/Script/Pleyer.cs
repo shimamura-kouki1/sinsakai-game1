@@ -22,13 +22,11 @@ namespace Text.Inheritance
         [SerializeField, Header("移動速度")]
         private float _Speed;
 
-        [SerializeField, Header("ジャンプ速度")]
+        [SerializeField, Header("ジャンプ高さ")]
         private float _jumpSpeed;
 
         private void Start()
-        {   //フレームレートの制限
-            Application.targetFrameRate = 60;
-
+        {  
             _ri = GetComponent<Rigidbody2D>();
 
             isJumping = false;
@@ -57,7 +55,7 @@ namespace Text.Inheritance
                 if (isJumping == false)
                 {
                     //Jumpの高さ
-                    _ri.velocity = new Vector2(0, 15);
+                    _ri.velocity = new Vector2(0,_jumpSpeed);
 
                 }
                 //Jumpをしたらtrueになる
