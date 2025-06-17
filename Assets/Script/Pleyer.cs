@@ -41,13 +41,13 @@ namespace Text.Inheritance
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 Vector2 pos = transform.position;
-                pos.x += _Speed;
+                pos.x += _Speed * Time.deltaTime;
                 transform.position = pos;
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Vector2 pos = transform.position;
-                pos.x -= _Speed;
+                pos.x -= _Speed * Time.deltaTime;
                 transform.position = pos;
             }
 
@@ -69,7 +69,7 @@ namespace Text.Inheritance
                 transform.position = new Vector3(0, 0,10);
             }*/
 
-            if (transform.position.y < -5)
+            if (transform.position.y < -15)
             {
                 Destroy(gameObject);
             }
