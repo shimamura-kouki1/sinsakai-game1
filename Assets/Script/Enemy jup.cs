@@ -21,7 +21,9 @@ public class Enemyjup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _rig.velocity = new Vector2(Vector2.left.x * _moveSpeed * Time.deltaTime, _rig.velocity.y);
+        //_rig.velocity = new Vector2(Vector2.left.x * _moveSpeed * Time.deltaTime, _rig.velocity.y);
+
+        transform.position = new Vector2(transform.position.x, Mathf.Sin(Time.time)*2);
 
         if (transform.position.y < -15)
         {
