@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
+    [SerializeField,Header("x")]private float x;
+    [SerializeField,Header("y")] private float y;
+    [SerializeField,Header("z")] private float z;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +21,7 @@ public class NewBehaviourScript : MonoBehaviour
         if(Time.frameCount % 120 == 0)
         {
             GameObject obj = (GameObject)Resources.Load("Enemy");
-            Instantiate(obj, new Vector3(-3.71f, -1.94f, 0.0f), Quaternion.identity);
+            Instantiate(obj, new Vector3(x, y, z), Quaternion.identity);
         }
        
     }

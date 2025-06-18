@@ -104,6 +104,11 @@ namespace Text.Inheritance
                 this.enabled = false;    //このスクリプトを非アクティブにする
                // GetComponent<>().enabled = false;
             }
+
+            if(collision.gameObject.tag == ("?block"))
+            {
+
+            }
         }
         private void OnTriggerEnter2D (Collider2D collider)//オブジェクトがすり抜けた時の処理
         {    //Coinをすり抜けたら
