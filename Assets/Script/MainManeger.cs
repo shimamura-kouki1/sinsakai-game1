@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Text.Inheritance;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
@@ -85,13 +86,30 @@ public class MainManeger : MonoBehaviour
             _pose.SetActive(false);
             Time.timeScale = 1;
         }
+        ReStartButton();
     }
 
+    public void ReStartButton()
+    {
+        if(Input.GetKey(KeyCode.R))
+        { 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 1;
+        }
+    }
+    public void TitleButton()
+    {
+        if(Input.GetKey(KeyCode.E))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
     public void Choice()
-    {   //
+    {   
         button = GameObject.Find("Canvas/pose/ReStartButton/Button").GetComponent<Button>();
         button.Select();
     }
+   
     /*public void ReStartButton()
     {   //É|Å[ÉYâÊñ ÇfalseÇ…
         _pose.SetActive(false);
