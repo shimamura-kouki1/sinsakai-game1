@@ -4321,6 +4321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1f85e38be1f8834da5ea70d73372d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: TitleScene
   _textText: {fileID: 1242075115}
   _gameOverUI: {fileID: 982002060}
   _gameClearUI: {fileID: 2092553099}

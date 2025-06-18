@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 public class MainManeger : MonoBehaviour
 {
+    [SerializeField]
+    public string sceneName;//タイトル画面作り途中
+
     [SerializeField, Header("スコア")]
     private TextMeshProUGUI _textText;
     public static int score = 0;
@@ -97,11 +100,11 @@ public class MainManeger : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-    public void TitleButton()
+    public void TitleButton(string sceneName)//ゲーム画面製作中
     {
         if(Input.GetKey(KeyCode.E))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(sceneName);
         }
     }
     public void Choice()
