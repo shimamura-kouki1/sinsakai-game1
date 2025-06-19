@@ -89,23 +89,16 @@ public class MainManeger : MonoBehaviour
             _pose.SetActive(false);
             Time.timeScale = 1;
         }
-        ReStartButton();
     }
 
     public void ReStartButton()
     {
-        if(Input.GetKey(KeyCode.R))
-        { 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Time.timeScale = 1;
-        }
     }
-    public void TitleButton(string sceneName)//ƒQ[ƒ€‰æ–Ê»ì’†
+    public void TitleButton()//ƒQ[ƒ€‰æ–Ê»ì’†
     {
-        if(Input.GetKey(KeyCode.E))
-        {
-            SceneManager.LoadScene(sceneName);
-        }
+            SceneManager.LoadScene("TitleScene");
     }
     public void Choice()
     {   

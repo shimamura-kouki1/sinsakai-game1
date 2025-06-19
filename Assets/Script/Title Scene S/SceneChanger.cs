@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,10 +19,19 @@ public class SceneChanger: MonoBehaviour
     }
     public void StartGame()//タイトルシーンへ移動
     {
-        {
             // "GameScene" は遷移先のシーン名
             SceneManager.LoadScene("Stage1");
-        }
     }
-     //if (Input.GetKey(KeyCode.E))
+
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // ビルド後にアプリケーションを終了
+        Application.Quit();
+#endif
+    }
+
+    //if (Input.GetKey(KeyCode.E))
 }
