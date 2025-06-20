@@ -9,6 +9,7 @@ TagManager:
   - Goal
   - Ladder
   - Coin
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -43,6 +44,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG
+    uniqueID: 2903871617
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
