@@ -17,12 +17,14 @@ public class NewBehaviourScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if(Time.frameCount % 120 == 0)
-        {
+    {  //タイムスケールが０よりも大きい時かつ、120フレームレートごとに実行する
+        if(Time.timeScale > 0f && Time.frameCount % 120  == 0)
+        {　
+            //ResourcesからEnemyをobjに代入し
             GameObject obj = (GameObject)Resources.Load("Enemy");
+
+            //Instantiateでオブジェクト生成し引数に（prefab,スポーン座標,回転つまり角度？）
             Instantiate(obj, new Vector3(x, y, z), Quaternion.identity);
         }
-       
     }
 }

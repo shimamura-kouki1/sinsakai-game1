@@ -9,6 +9,7 @@ public class CameraManager : MonoBehaviour
 
     private Player _player;
 
+
     // Start is called before the first frame update
     void Start()
     {

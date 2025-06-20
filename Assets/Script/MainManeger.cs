@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Text.Inheritance;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
@@ -32,6 +33,9 @@ public class MainManeger : MonoBehaviour
 
     Button button;
 
+    [Header("リスタートボタン")]
+    public Button restartButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +44,9 @@ public class MainManeger : MonoBehaviour
 
         _player = FindObjectOfType<Player>().gameObject;
         score = 0;
+
+        //最初に選択状態にする
+        EventSystem.current.SetSelectedGameObject(restartButton.gameObject);
 
         //ReStartButton(); 92行目
     }
@@ -52,6 +59,25 @@ public class MainManeger : MonoBehaviour
         Score();
 
         PauseGame();
+
+        /*選択されていない状態から再度選択状態に戻す
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(restartButton.gameObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            GameObject selectedObj = EventSystem.current.currentSelectedGameObject;
+            if (selectedObj != null)
+            {
+                Button btn = selectedObj.GetComponent<Button>();
+                if (btn != null)
+                {
+                    btn.onClick.Invoke(); // ボタンのクリックイベントを実行
+                }
+            }
+        }*/
     }
 
     public void Score()
@@ -93,6 +119,7 @@ public class MainManeger : MonoBehaviour
 
     public void ReStartButton()
     {
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Time.timeScale = 1;
     }
