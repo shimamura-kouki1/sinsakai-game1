@@ -100,6 +100,9 @@ public class MainManeger : MonoBehaviour
     {@ @
         //gameClearUI‚ª—LŒø‚É‚È‚é
         _gameClearUI.SetActive(true);
+
+        Time.timeScale = 0;
+
     }
     public void PauseGame()
     {

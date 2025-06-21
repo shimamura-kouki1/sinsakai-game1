@@ -13,7 +13,7 @@ namespace Text.Inheritance
     {
         public bool isJumping;
         //[SerializeField] float _power = 5f;
-        Rigidbody2D _ri;
+        Rigidbody2D _rb;
 
         [SerializeField, Header("体力")]
             //整数のhp
@@ -27,7 +27,7 @@ namespace Text.Inheritance
 
         private void Start()
         {  
-            _ri = GetComponent<Rigidbody2D>();
+            _rb = GetComponent<Rigidbody2D>();
 
             isJumping = false;
         }
@@ -36,18 +36,18 @@ namespace Text.Inheritance
         {       //hpの値が減っているのかを確認する
             Debug.Log(_hp);
 
-            if (Input.GetKey(KeyCode.RightArrow))
+            /*if (Input.GetKey(KeyCode.RightArrow))
             {
                 Vector2 pos = transform.position;
                 pos.x += _Speed * Time.deltaTime;
                 transform.position = pos;
             }
-            else if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Vector2 pos = transform.position;
                 pos.x -= _Speed * Time.deltaTime;
                 transform.position = pos;
-            }
+            }*/
 
             if (Input.GetKey(KeyCode.Space))
             {
@@ -55,7 +55,7 @@ namespace Text.Inheritance
                 if (isJumping == false)
                 {
                     //Jumpの高さ
-                    _ri.velocity = new Vector2(0,_jumpSpeed);
+                    _rb.velocity = new Vector2(0,_jumpSpeed);
 
                 }
                 //Jumpをしたらtrueになる
@@ -71,6 +71,30 @@ namespace Text.Inheritance
             {
                 Destroy(gameObject);
             }
+
+        }
+
+        void FixedUpdate()      //FixedUpdateで更新すると物理処理とぴったり合って、カクつかないらしい
+        {
+            if (Time.timeScale == 0f)
+            {
+                return;
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                _rb.velocity = new Vector2(_Speed, _rb.velocity.y);
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                _rb.velocity = new Vector2(_Speed * -1, _rb.velocity.y);
+            }
+
+            else
+            {
+                // どのキーも押していない → 横方向の速度を0にする
+                _rb.velocity = new Vector2(0f, _rb.velocity.y);
+            }
+            
 
         }
 
@@ -142,7 +166,7 @@ namespace Text.Inheritance
                 //AddForceとはオブジェクトを加速させる処理、「ForceMode2D」の設定で加速の仕方が変わる
                 //「ForceMode2D」は2種類あり、「Force」は初速が遅く、徐々に加速していく処理・「impulse」は初速が早く、徐々に減速していく処理
 
-                _ri.AddForce(Vector2.up * new Vector2(0,15f),ForceMode2D.Impulse);
+                _rb.AddForce(Vector2.up * new Vector2(0,15f),ForceMode2D.Impulse);
             }
                 //if文以外の場所で接触した場合処理する
             else

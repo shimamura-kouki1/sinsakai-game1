@@ -6,6 +6,7 @@ using UnityEngine;
 public class OperatingInstructions : MonoBehaviour
 {
     public GameObject OperatingPanel;
+    public CanvasGroup canvasGroup;
 
     public Transform Player;
 
@@ -21,7 +22,7 @@ public class OperatingInstructions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-   
+        farstPanel();
     }
 
     public void farstPanel()
@@ -34,6 +35,6 @@ public class OperatingInstructions : MonoBehaviour
                      (pos.y >= min.y && pos.y <= max.y) &&
                      (pos.z >= min.z && pos.z <= max.z);
 
-        OperatingPanel.SetActive(inZone);
+        OperatingPanel.SetActive(inZone);       //inZone‚ªtrue‚È‚çPanel‚ð•\Ž¦Afarse‚È‚ç”ñ•\Ž¦
     }
 }
