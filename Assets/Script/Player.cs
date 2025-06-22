@@ -11,63 +11,53 @@ namespace Text.Inheritance
 
     public class Player : MonoBehaviour
     {
-        public bool isJumping;
+        
         //[SerializeField] float _power = 5f;
         Rigidbody2D _rb;
 
         [SerializeField, Header("体力")]
-            //整数のhp
-        private int _hp;
+        private int _hp;    //整数のhp
 
         [SerializeField, Header("移動速度")]
         private float _Speed;
 
+        //ジャンプ関係
         [SerializeField, Header("ジャンプ高さ")]
-        private float _jumpSpeed;
+        private float _jumpHeight;
+        public bool isJumping = true;
+        public AudioClip jumpSound;        // ← ジャンプ音をインスペクターで指定
+        private AudioSource audioSource;  // 音を鳴らす装置
 
+        //コインの取得音
+        public AudioClip CoinSound;
         private void Start()
         {  
             _rb = GetComponent<Rigidbody2D>();
 
-            isJumping = false;
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
         {       //hpの値が減っているのかを確認する
             Debug.Log(_hp);
 
-            /*if (Input.GetKey(KeyCode.RightArrow))
+            
+            if (Input.GetKey(KeyCode.Space)&& isJumping)
             {
-                Vector2 pos = transform.position;
-                pos.x += _Speed * Time.deltaTime;
-                transform.position = pos;
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                Vector2 pos = transform.position;
-                pos.x -= _Speed * Time.deltaTime;
-                transform.position = pos;
-            }*/
+                _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);    //Jumpの高さ
+               
+                isJumping = false;   //Jumpをしたらfalseになる
 
-            if (Input.GetKey(KeyCode.Space))
-            {
-                //もしfalseだったらjump可能　
-                if (isJumping == false)
-                {
-                    //Jumpの高さ
-                    _rb.velocity = new Vector2(0,_jumpSpeed);
-
-                }
-                //Jumpをしたらtrueになる
-                isJumping = true;
+                audioSource.PlayOneShot(jumpSound);
             }
+          
 
             /*if(Input.GetKey(KeyCode.E))
             {
                 transform.position = new Vector3(0, 0,10);
             }*/
 
-            if (transform.position.y < -15)
+            if (transform.position.y < -15)     //-15以下の座標に落ちたらゲームオーバー
             {
                 Destroy(gameObject);
             }
@@ -98,16 +88,6 @@ namespace Text.Inheritance
 
         }
 
-        void HideParentOnly(GameObject parent)
-        {
-            Renderer renderer = parent.GetComponent<Renderer>();
-            if (Input.GetKey(KeyCode.E))
-            {
-                renderer.enabled = false; // 親オブジェクトを非表示
-            }
-        }
-
-
         //Collision2D ->    衝突したときに実行
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -119,7 +99,7 @@ namespace Text.Inheritance
             if (collision.gameObject.tag == ("ground"))
             {
                 //falseの場合Jumpを可能にする
-                isJumping = false;
+                isJumping = true;
             }
 
             if(collision.gameObject.tag == ("Goal"))
@@ -128,12 +108,8 @@ namespace Text.Inheritance
                 this.enabled = false;    //このスクリプトを非アクティブにする
                // GetComponent<>().enabled = false;
             }
-
-            if(collision.gameObject.tag == ("?block"))
-            {
-
-            }
         }
+
         private void OnTriggerEnter2D (Collider2D collider)//オブジェクトがすり抜けた時の処理
         {    //Coinをすり抜けたら
             { if(collider.gameObject.tag == ("Coin"))
@@ -142,8 +118,17 @@ namespace Text.Inheritance
                 FindObjectOfType<MainManeger>().Score();
             　　//scoreに100加算する
                 MainManeger.score += 100;
-                //その後、オブジェクトを破棄する
-                Destroy(collider.gameObject);
+
+                collider.GetComponent<Coin>().PlayGetSoundAndDestroy();
+            }
+        }
+
+        void HideParentOnly(GameObject parent)
+        {
+            Renderer renderer = parent.GetComponent<Renderer>();
+            if (Input.GetKey(KeyCode.E))
+            {
+                renderer.enabled = false; // 親オブジェクトを非表示
             }
         }
 
@@ -205,7 +190,7 @@ namespace Text.Inheritance
 
 
     //「||」とは「～または～」という条件設定に使う　　if(A||B)->AまたはBの条件になったときに処理を実行する
-    //「&&」とは「～かつ～」という条件設定に使う　　　if(A&&B)->AかつBの条件になったときに処理を実行する
+    //「&&」とは「～かつ～」という条件設定に使う　　　if(A&&B)->AかつBの条件になったときに処理を実行する　　　また、短絡評価であり、左辺の条件に会わなかったらその時点で右辺の条件を検証せずにfalseになる
 
 }
 
