@@ -30,6 +30,8 @@ namespace Text.Inheritance
 
         //コインの取得音
         public AudioClip CoinSound;
+        //エネミーを踏んだ時の音
+        public AudioClip EnemySound;
         private void Start()
         {  
             _rb = GetComponent<Rigidbody2D>();
@@ -151,6 +153,7 @@ namespace Text.Inheritance
             if (transform.position.y - (halfScaleY - 0.1f) >= enemy.transform.position.y + (enemyHalfScaleY - 0.1f))
             {
                 MainManeger.score += 100; //scoreの加算
+                audioSource.PlayOneShot(EnemySound, 1f);        //エネミーをを踏んだ時の音
                 Destroy(enemy);
 
                 //上方向(Vector2.up)にnew Vector2(0,5.5f)分加速させる。
@@ -172,8 +175,8 @@ namespace Text.Inheritance
         }
 
         private void _Dead()
-        {       //hpが０以下になったら処理
-            if(_hp <= 0)
+        {       
+            if(_hp <= 0)        //hpが０以下になったら処理
             {
                 Destroy(gameObject);
             }
@@ -181,13 +184,10 @@ namespace Text.Inheritance
 
         public void Damage(int damage)
         {   
-            //Mathf.Max()とは()内のに入れた２つの値のうちから大きいほうを変数に入れる処理
-            //_hpに_hpからdamageを引いた数を代入していく。()の中に0が入っているのは0以下の数字が表示されないようにしている。
-            _hp = Mathf.Max(_hp - damage,0);
-
+            _hp = Mathf.Max(_hp - damage,0);        //Mathf.Max()とは()内のに入れた２つの値のうちから大きいほうを変数に入れる処理
+                                                    //_hpに_hpからdamageを引いた数を代入していく。()の中に0が入っているのは0以下の数字が表示されないようにしている。
             _Dead();
         }
-
     }
 
 
