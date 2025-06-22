@@ -119,7 +119,13 @@ namespace Text.Inheritance
             Å@Å@//scoreÇ…100â¡éZÇ∑ÇÈ
                 MainManeger.score += 100;
 
-                collider.GetComponent<Coin>().PlayGetSoundAndDestroy();
+              if (CoinSound != null)
+                {
+                    audioSource.PlayOneShot(CoinSound,1f);
+                    //collider.GetComponent<Coin>().PlayGetSoundAndDestroy(); 
+                    Destroy(collider.gameObject);
+                }
+       
             }
         }
 
