@@ -17,7 +17,7 @@ public class BGMManager : MonoBehaviour
         if (volumeSlider != null)
         {
             volumeSlider.onValueChanged.AddListener(ChangeVolume);
-            _audiosource.volume = volumeSlider.value; // ‰Šú’l‚ğ”½‰f
+            _audiosource.volume = 0.1f; // ‰Šú’l‚ğ”½‰f
         }
     }
 

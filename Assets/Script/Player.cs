@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Animations;
 using static System.Object;
+using UnityEngine.InputSystem;
 
 
 namespace Text.Inheritance
@@ -18,20 +19,23 @@ namespace Text.Inheritance
         [SerializeField, Header("体力")]
         private int _hp;    //整数のhp
 
+        //移動関係
         [SerializeField, Header("移動速度")]
-        private float _Speed;
+        private int _Speed;
+        private Vector2 _inputDirection;
 
         //ジャンプ関係
         [SerializeField, Header("ジャンプ高さ")]
         private float _jumpHeight;
         public bool isJumping = true;
-        public AudioClip jumpSound;        // ← ジャンプ音をインスペクターで指定
-        private AudioSource audioSource;  // 音を鳴らす装置
-
+        public AudioClip jumpSound;             // ← ジャンプ音をインスペクターで指定
+        private AudioSource audioSource;        // 音を鳴らす装置
+       
         //コインの取得音
         public AudioClip CoinSound;
         //エネミーを踏んだ時の音
         public AudioClip EnemySound;
+        
         private void Start()
         {  
             _rb = GetComponent<Rigidbody2D>();
@@ -44,20 +48,15 @@ namespace Text.Inheritance
             Debug.Log(_hp);
 
             
-            if (Input.GetKey(KeyCode.Space)&& isJumping)
+            /*if (Input.GetKey(KeyCode.Space)&& isJumping)
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);    //Jumpの高さ
                
                 isJumping = false;   //Jumpをしたらfalseになる
 
                 audioSource.PlayOneShot(jumpSound);
-            }
-          
-
-            /*if(Input.GetKey(KeyCode.E))
-            {
-                transform.position = new Vector3(0, 0,10);
             }*/
+          
 
             if (transform.position.y < -15)     //-15以下の座標に落ちたらゲームオーバー
             {
@@ -68,26 +67,27 @@ namespace Text.Inheritance
 
         void FixedUpdate()      //FixedUpdateで更新すると物理処理とぴったり合って、カクつかないらしい
         {
+            _rb.velocity = new Vector2(_inputDirection.x * _Speed, _rb.velocity.y);     //_OnMoveで代入した_inputDirection.xを_Speedにかけることで左右移動ができる
+
             if (Time.timeScale == 0f)
             {
                 return;
             }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                _rb.velocity = new Vector2(_Speed, _rb.velocity.y);
-            }
-            else if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                _rb.velocity = new Vector2(_Speed * -1, _rb.velocity.y);
-            }
+        }
 
-            else
-            {
-                // どのキーも押していない → 横方向の速度を0にする
-                _rb.velocity = new Vector2(0f, _rb.velocity.y);
-            }
-            
+        public void OnMove(InputAction.CallbackContext context)        //InputAction.CallbackContextはInput Systemで発生したイベントを取得するためのもの
+        {
+            _inputDirection = context.ReadValue<Vector2>();             //contextをVector2型に変換した値を_inputDirectionに代入している　
+                                                                        //つまり、右入力なら（1,0）左入力なら（-1,0）を代入している
+        }
 
+        public void OnJump(InputAction.CallbackContext context)
+        {
+            if (!context.performed) 
+            {
+                return; 
+            }
+            _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);
         }
 
         //Collision2D ->    衝突したときに実行
@@ -113,15 +113,14 @@ namespace Text.Inheritance
         }
 
         private void OnTriggerEnter2D (Collider2D collider)//オブジェクトがすり抜けた時の処理
-        {    //Coinをすり抜けたら
-            { if(collider.gameObject.tag == ("Coin"))
+        {    
+            { if(collider.gameObject.tag == ("Coin"))           //Coinをすり抜けたら
 
-                //MainManegerからScoreを探し出す
-                FindObjectOfType<MainManeger>().Score();
-            　　//scoreに100加算する
-                MainManeger.score += 100;
+                FindObjectOfType<MainManeger>().Score();        //MainManegerからScoreを探し出す
+                                                                  
+                MainManeger.score += 100;                       //scoreに100加算する
 
-              if (CoinSound != null)
+                if (CoinSound != null)
                 {
                     audioSource.PlayOneShot(CoinSound,1f);
                     //collider.GetComponent<Coin>().PlayGetSoundAndDestroy(); 
@@ -131,7 +130,7 @@ namespace Text.Inheritance
             }
         }
 
-        void HideParentOnly(GameObject parent)
+        private void HideParentOnly(GameObject parent)
         {
             Renderer renderer = parent.GetComponent<Renderer>();
             if (Input.GetKey(KeyCode.E))
@@ -141,18 +140,16 @@ namespace Text.Inheritance
         }
 
         private void HitEnemy(GameObject enemy)
-        {       //haltScaleYにGameObjectの半分の高さが代入される
-            float halfScaleY = transform.lossyScale.y / 2.0f;
+        {       
+            float halfScaleY = transform.lossyScale.y / 2.0f;       //haltScaleYにGameObjectの半分の高さが代入される
+            
+            float enemyHalfScaleY = enemy.transform.lossyScale.y / 2.0f;        //enemyHalfScaleYにenemyの半分の高さが代入される
 
-                //enemyHalfScaleYにenemyの半分の高さが代入される
-            float enemyHalfScaleY = enemy.transform.lossyScale.y / 2.0f;
-
-                //もしplayreの位置からplayreの半分下に下げた位置がenemyの座標から半分の大きさ分あげた位置よりも上だった場合
-                //transform.positionはplayreのちょうど真ん中の位置を指している
-                //-0.1fはめり込んだ時の座標の対処している
-            if (transform.position.y - (halfScaleY - 0.1f) >= enemy.transform.position.y + (enemyHalfScaleY - 0.1f))
+            if (transform.position.y - (halfScaleY - 0.1f) >= enemy.transform.position.y + (enemyHalfScaleY - 0.1f))    //もしplayreの位置からplayreの半分下に下げた位置がenemyの座標から半分の大きさ分あげた位置よりも上だった場合
+                                                                                                                        //transform.positionはplayreのちょうど真ん中の位置を指している
+                                                                                                                        //-0.1fはめり込んだ時の座標の対処している
             {
-                MainManeger.score += 100; //scoreの加算
+                MainManeger.score += 100;                       //scoreの加算
                 audioSource.PlayOneShot(EnemySound, 1f);        //エネミーをを踏んだ時の音
                 Destroy(enemy);
 
