@@ -28,6 +28,7 @@ public class MainManeger : MonoBehaviour
 
     [SerializeField,Header("ポーズ画面")]
     private GameObject _pose;
+    private bool _isPaused = false;
 
     private GameObject _player;
 
@@ -106,17 +107,13 @@ public class MainManeger : MonoBehaviour
     }
     public void PauseGame()
     {
-        if (Input.GetKey(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-           　　//ポーズ画面をtureにする
-                _pose.SetActive(true);
-            　　//ゲームを一時停止
-                Time.timeScale = 0;
-        }
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            _pose.SetActive(false);
-            Time.timeScale = 1;
+            _isPaused = !_isPaused;             // 状態を反転
+
+            _pose.SetActive(_isPaused);         // ポーズ画面を表示/非表示
+            Time.timeScale = _isPaused ? 0 : 1; // 一時停止／再開  trueなら0、falseなら1を代入する
+                                                //三項演算子とは、条件式 ? 真の場合の値 : 偽の場合の値　という式
         }
     }
 
