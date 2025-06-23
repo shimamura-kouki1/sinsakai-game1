@@ -27,9 +27,9 @@ namespace Text.Inheritance
         //ジャンプ関係
         [SerializeField, Header("ジャンプ高さ")]
         private float _jumpHeight;
-        public bool isJumping = true;
+        private bool _isJumping = true;
         public AudioClip jumpSound;             // ← ジャンプ音をインスペクターで指定
-        private AudioSource audioSource;        // 音を鳴らす装置
+        private AudioSource _audioSource;        // 音を鳴らす装置
        
         //コインの取得音
         public AudioClip CoinSound;
@@ -40,23 +40,12 @@ namespace Text.Inheritance
         {  
             _rb = GetComponent<Rigidbody2D>();
 
-            audioSource = GetComponent<AudioSource>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
         {       //hpの値が減っているのかを確認する
             Debug.Log(_hp);
-
-            
-            /*if (Input.GetKey(KeyCode.Space)&& isJumping)
-            {
-                _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);    //Jumpの高さ
-               
-                isJumping = false;   //Jumpをしたらfalseになる
-
-                audioSource.PlayOneShot(jumpSound);
-            }*/
-          
 
             if (transform.position.y < -15)     //-15以下の座標に落ちたらゲームオーバー
             {
@@ -81,13 +70,17 @@ namespace Text.Inheritance
                                                                         //つまり、右入力なら（1,0）左入力なら（-1,0）を代入している
         }
 
-        public void OnJump(InputAction.CallbackContext context)
+        public void OnJump(InputAction.CallbackContext context)         //このメソッドはイベント駆動のためイベントが起きると自動的に呼び出してくれる。よってupdetoに入れなくても動く
         {
-            if (!context.performed) 
+            if (!context.performed || !_isJumping) 
             {
                 return; 
             }
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);
+            
+            _isJumping = false;   //Jumpをしたらfalseになる
+
+            _audioSource.PlayOneShot(jumpSound);
         }
 
         //Collision2D ->    衝突したときに実行
@@ -101,7 +94,7 @@ namespace Text.Inheritance
             if (collision.gameObject.tag == ("ground"))
             {
                 //falseの場合Jumpを可能にする
-                isJumping = true;
+                _isJumping = true;
             }
 
             if(collision.gameObject.tag == ("Goal"))
@@ -122,7 +115,7 @@ namespace Text.Inheritance
 
                 if (CoinSound != null)
                 {
-                    audioSource.PlayOneShot(CoinSound,1f);
+                    _audioSource.PlayOneShot(CoinSound,1f);
                     //collider.GetComponent<Coin>().PlayGetSoundAndDestroy(); 
                     Destroy(collider.gameObject);
                 }
@@ -150,7 +143,7 @@ namespace Text.Inheritance
                                                                                                                         //-0.1fはめり込んだ時の座標の対処している
             {
                 MainManeger.score += 100;                       //scoreの加算
-                audioSource.PlayOneShot(EnemySound, 1f);        //エネミーをを踏んだ時の音
+                _audioSource.PlayOneShot(EnemySound, 1f);        //エネミーをを踏んだ時の音
                 Destroy(enemy);
 
                 //上方向(Vector2.up)にnew Vector2(0,5.5f)分加速させる。
