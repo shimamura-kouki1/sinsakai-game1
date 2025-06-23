@@ -61,6 +61,7 @@ public class MainManeger : MonoBehaviour
 
         PauseGame();
 
+
         /*‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢ó‘Ô‚©‚çÄ“x‘I‘ğó‘Ô‚É–ß‚·
         if (EventSystem.current.currentSelectedGameObject == null)
         {
@@ -119,7 +120,7 @@ public class MainManeger : MonoBehaviour
 
     public void ReStartButton()
     {
-
+        
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Time.timeScale = 1;
     }
