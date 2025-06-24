@@ -35,12 +35,17 @@ namespace Text.Inheritance
         public AudioClip CoinSound;
         //エネミーを踏んだ時の音
         public AudioClip EnemySound;
+
+        //アニメーション
+        private Animator _anime;
         
         private void Start()
         {  
             _rb = GetComponent<Rigidbody2D>();
 
             _audioSource = GetComponent<AudioSource>();
+
+            _anime = GetComponent<Animator>();
         }
 
         private void Update()
@@ -56,12 +61,19 @@ namespace Text.Inheritance
 
         void FixedUpdate()      //FixedUpdateで更新すると物理処理とぴったり合って、カクつかないらしい
         {
+            Move();
+        }
+
+        public void Move()
+        {
             _rb.velocity = new Vector2(_inputDirection.x * _Speed, _rb.velocity.y);     //_OnMoveで代入した_inputDirection.xを_Speedにかけることで左右移動ができる
 
             if (Time.timeScale == 0f)
             {
                 return;
             }
+            _anime.SetBool("Walk", _inputDirection.x != 0.0f);          //指定したパラメーターのBool値を変更するもの,SetBool(変更したいパラメータ,変更したい値)
+                                                                        //今回は横方向の値が0じゃない場合trueになる。つまり、動いているときにtrueになる
         }
 
         public void OnMove(InputAction.CallbackContext context)        //InputAction.CallbackContextはInput Systemで発生したイベントを取得するためのもの
@@ -79,7 +91,7 @@ namespace Text.Inheritance
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);
             
             _isJumping = false;   //Jumpをしたらfalseになる
-
+            _anime.SetBool("Jump",!_isJumping);
             _audioSource.PlayOneShot(jumpSound);
         }
 
@@ -95,6 +107,7 @@ namespace Text.Inheritance
             {
                 //falseの場合Jumpを可能にする
                 _isJumping = true;
+                _anime.SetBool("Jump",!_isJumping);
             }
 
             if(collision.gameObject.tag == ("Goal"))
