@@ -13,6 +13,7 @@
 /[Aa]ssets/[Rr]esources/[Cc]ainos/[Pp]ixel [Aa]rt [Pp]latformer - [Vv]illage [Pp]rops/
 /[Aa]ssets/[Pp]olyMeshWorld/2D SideScroller Pixel Art Kit Free/
 /[aa]ssets/[Ss]imple 2D Platformer BE2/
+/[Aa]ssets/[Gg]azou/
 *.log
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
