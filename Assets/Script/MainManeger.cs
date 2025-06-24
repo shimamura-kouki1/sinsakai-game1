@@ -61,25 +61,15 @@ public class MainManeger : MonoBehaviour
 
         PauseGame();
 
-
-        /*選択されていない状態から再度選択状態に戻す
-        if (EventSystem.current.currentSelectedGameObject == null)
+        if(Input.GetKeyDown(KeyCode.Q))
         {
-            EventSystem.current.SetSelectedGameObject(restartButton.gameObject);
+            StartGame();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if(Input.GetKeyDown(KeyCode.R))
         {
-            GameObject selectedObj = EventSystem.current.currentSelectedGameObject;
-            if (selectedObj != null)
-            {
-                Button btn = selectedObj.GetComponent<Button>();
-                if (btn != null)
-                {
-                    btn.onClick.Invoke(); // ボタンのクリックイベントを実行
-                }
-            }
-        }*/
+            ReStartButton();
+        }
     }
 
     public void Score()
@@ -120,26 +110,26 @@ public class MainManeger : MonoBehaviour
 
     public void ReStartButton()
     {
-        
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Time.timeScale = 1;
     }
+
     public void TitleButton()//ゲーム画面製作中
     {
             SceneManager.LoadScene("TitleScene");
     }
+
     public void Choice()
     {   
         button = GameObject.Find("Canvas/pose/ReStartButton/Button").GetComponent<Button>();
         button.Select();
     }
-   
-    /*public void ReStartButton()
-    {   //ポーズ画面をfalseに
-        _pose.SetActive(false);
-        //ゲーム進行
-        Time.timeScale = 1;
-    }*/
+
+    public void StartGame()//タイトルシーンへ移動
+    {
+        // "GameScene" は遷移先のシーン名
+        SceneManager.LoadScene("SelectScene");
+    }
 }
 //まとめてコメントアウト　ctrl+K+C
 //まとめてコメントアウト解除　ctrl +K+U

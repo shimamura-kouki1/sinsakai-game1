@@ -2,20 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemyjup : MonoBehaviour
+public class MoveFloor : MonoBehaviour
 {
-    [SerializeField, Header("移動速度")]
-    private float _moveSpeed;
-
-    [SerializeField, Header("攻撃力")]
-    //enemyの攻撃力を入れるための変数
-    private int _attackPower;
-
     private Rigidbody2D _rig;
     private float _elapsedTime;
-
-    [SerializeField, Header("動きの位相ずれ")]
-    private float _phaseOffset; //タイミングのずれ
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +24,10 @@ public class Enemyjup : MonoBehaviour
         {
             return;
         }
+           
+
         _elapsedTime += Time.fixedDeltaTime;
 
-        transform.position = new Vector2(transform.position.x, Mathf.Sin(_elapsedTime + _phaseOffset) * 2f);
+        transform.position = new Vector2(transform.position.x, Mathf.Sin(_elapsedTime) * 2f);
     }
 }

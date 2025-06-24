@@ -25,7 +25,12 @@ public class CameraManager : MonoBehaviour
 
     private void _FollowPlayer()
 
-    {   //プレイヤーのX座標をXに代入
+    {
+        if (_player == null)
+        {
+            return; 
+        }
+        //プレイヤーのX座標をXに代入
         float x = _player.transform.position.x;
 
         //ｘの値をカメラの初期位置から無限の間に制限
