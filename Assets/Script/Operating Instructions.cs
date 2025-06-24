@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Text.Inheritance;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class OperatingInstructions : MonoBehaviour
 {
@@ -32,7 +31,6 @@ public class OperatingInstructions : MonoBehaviour
         {
             return; // プレイヤーが存在しないなら何もしない
         }
-
         Vector3 pos = Player.position;
         Vector3 min = center - size * 0.5f;     //中心点から左側の座標の最少点
         Vector3 max = center + size * 0.5f;     //中心点から右側の最大点

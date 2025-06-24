@@ -28,7 +28,7 @@ public class CameraManager : MonoBehaviour
     {
         if (_player == null)
         {
-            return; 
+            return; // プレイヤーが存在しないなら何もしない
         }
         //プレイヤーのX座標をXに代入
         float x = _player.transform.position.x;
