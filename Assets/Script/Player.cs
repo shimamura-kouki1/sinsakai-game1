@@ -12,8 +12,6 @@ namespace Text.Inheritance
 
     public class Player : MonoBehaviour
     {
-        
-        //[SerializeField] float _power = 5f;
         Rigidbody2D _rb;
 
         [SerializeField, Header("体力")]
@@ -96,8 +94,8 @@ namespace Text.Inheritance
             }
 
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);
-            _isJumping = false;   //Jumpをしたらfalseになる
-            _anime.SetBool("Jump",!_isJumping);
+            _isJumping = false;                          //Jumpをしたらfalseになる
+            _anime.SetBool("Jump",!_isJumping);         //ジャンプアニメーション
             _audioSource.PlayOneShot(jumpSound);
         }
         
@@ -112,14 +110,13 @@ namespace Text.Inheritance
             {
                 //falseの場合Jumpを可能にする
                 _isJumping = true;
-                _anime.SetBool("Jump",!_isJumping);
+                _anime.SetBool("Jump",!_isJumping);     //ジャンプアニメーション
             }
 
             if(collision.gameObject.tag == ("Goal"))
             {
                 FindObjectOfType<MainManeger>().ShowGameClearUI();
-                this.enabled = false;    //このスクリプトを非アクティブにする
-               // GetComponent<>().enabled = false;
+                this.enabled = false;    //このゲームオブジェクトを非アクティブにする
             }
         }
 
@@ -130,16 +127,18 @@ namespace Text.Inheritance
             {
                 FindObjectOfType<MainManeger>().Score();     //MainManegerからScoreを探し出す
                 MainManeger.score += 100;                    //scoreに100加算する
-            }                                           
-
-                if (CoinSound != null)
-                {
-                    _audioSource.PlayOneShot(CoinSound,1f);
-                    //collider.GetComponent<Coin>().PlayGetSoundAndDestroy(); 
-                    Destroy(collider.gameObject);
-                }
+            } 
+            
+            if (CoinSound != null)
+      　    {
+                _audioSource.PlayOneShot(CoinSound,1f);
+                 Destroy(collider.gameObject);              //接触しているゲームオブジェクトを破壊
+            }
         }
-
+        /// <summary>
+        /// Enemyに接触した時の処理
+        /// </summary>
+        /// <param name="enemy"></param>
         private void HitEnemy(GameObject enemy)
         {       
             float halfScaleY = transform.lossyScale.y / 2.0f;       //haltScaleYにGameObjectの半分の高さが代入される
@@ -171,7 +170,7 @@ namespace Text.Inheritance
 
 
         }
-
+     
         private void _Dead()
         {       
             if(_hp <= 0)        //hpが０以下になったら処理

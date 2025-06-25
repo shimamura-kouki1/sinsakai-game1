@@ -79,22 +79,18 @@ public class MainManeger : MonoBehaviour
 
     private void ShowGameOverUI()
     {
-        //_playerのGameObjectがnullの時に実行される
-        if (_player != null)
+        if (_player != null)        //_playerのGameObjectがnullの時に実行される
         {
             return;
         }
         //gameOverUIが有効になる
-        _gameOverUI.SetActive(true); //SetActive = ゲームオブジェクトの有効・無効を切り替える
+        _gameOverUI.SetActive(true);    //SetActive = ゲームオブジェクトの有効・無効を切り替える
     }
 
-    public void ShowGameClearUI()//Playerスクリプト103行目
+    public void ShowGameClearUI()           //Playerスクリプト103行目
     {　 　
-        //gameClearUIが有効になる
-        _gameClearUI.SetActive(true);
-
+        _gameClearUI.SetActive(true);        //gameClearUIが有効になる
         Time.timeScale = 0;
-
     }
     public void PauseGame()
     {
