@@ -27,10 +27,13 @@ namespace Text.Inheritance
         //ジャンプ関係
         [SerializeField, Header("ジャンプ高さ")]
         private float _jumpHeight;
+       
         private bool _isJumping = true;
         public AudioClip jumpSound;             // ← ジャンプ音をインスペクターで指定
         private AudioSource _audioSource;        // 音を鳴らす装置
-       
+        [SerializeField, Header("エネミーヒットジャンプ")]
+        private float _EnemyHitJumpHeight;
+
         //コインの取得音
         public AudioClip CoinSound;
         //エネミーを踏んだ時の音
@@ -38,6 +41,8 @@ namespace Text.Inheritance
 
         //アニメーション
         private Animator _anime;
+
+
         
         private void Start()
         {  
@@ -89,15 +94,14 @@ namespace Text.Inheritance
             {
                 return; 
             }
+
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpHeight);
-            
             _isJumping = false;   //Jumpをしたらfalseになる
             _anime.SetBool("Jump",!_isJumping);
             _audioSource.PlayOneShot(jumpSound);
         }
-
-        //Collision2D ->    衝突したときに実行
-        private void OnCollisionEnter2D(Collision2D collision)
+        
+        private void OnCollisionEnter2D(Collision2D collision)      //Collision2D ->    衝突したときに実行
         {
             if(collision.gameObject.tag == "Enemy")
             {
@@ -134,17 +138,6 @@ namespace Text.Inheritance
                     //collider.GetComponent<Coin>().PlayGetSoundAndDestroy(); 
                     Destroy(collider.gameObject);
                 }
-       
-            
-        }
-
-        private void HideParentOnly(GameObject parent)
-        {
-            Renderer renderer = parent.GetComponent<Renderer>();
-            if (Input.GetKey(KeyCode.E))
-            {
-                renderer.enabled = false; // 親オブジェクトを非表示
-            }
         }
 
         private void HitEnemy(GameObject enemy)
@@ -153,7 +146,7 @@ namespace Text.Inheritance
             
             float enemyHalfScaleY = enemy.transform.lossyScale.y / 2.0f;        //enemyHalfScaleYにenemyの半分の高さが代入される
 
-            if (transform.position.y - (halfScaleY - 0.1f) >= enemy.transform.position.y + (enemyHalfScaleY - 0.1f))    //もしplayreの位置からplayreの半分下に下げた位置がenemyの座標から半分の大きさ分あげた位置よりも上だった場合
+            if (transform.position.y - (halfScaleY - 0.1f) >= enemy.transform.position.y + (enemyHalfScaleY - 0.1f))    //playreの中心位置からplayreの半分の高さを下げた位置がenemyの中心位置から半分の高さ分あげた位置よりも上のところが接触
                                                                                                                         //transform.positionはplayreのちょうど真ん中の位置を指している
                                                                                                                         //-0.1fはめり込んだ時の座標の対処している
             {
@@ -165,7 +158,7 @@ namespace Text.Inheritance
                 //AddForceとはオブジェクトを加速させる処理、「ForceMode2D」の設定で加速の仕方が変わる
                 //「ForceMode2D」は2種類あり、「Force」は初速が遅く、徐々に加速していく処理・「impulse」は初速が早く、徐々に減速していく処理
 
-                _rb.AddForce(Vector2.up * new Vector2(0,15f),ForceMode2D.Impulse);
+                _rb.AddForce(Vector2.up * new Vector2(0, _EnemyHitJumpHeight),ForceMode2D.Impulse);
             }
                 //if文以外の場所で接触した場合処理する
             else
