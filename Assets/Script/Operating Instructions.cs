@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class OperatingInstructions : MonoBehaviour
 {
+    public GameObject PanelHaikei;
     public GameObject OperatingPanel;
     public CanvasGroup canvasGroup;
 
@@ -39,6 +40,7 @@ public class OperatingInstructions : MonoBehaviour
                      (pos.y >= min.y && pos.y <= max.y) &&
                      (pos.z >= min.z && pos.z <= max.z);
 
-        OperatingPanel.SetActive(inZone);       //inZoneがtrueならPanelを表示、farseなら非表示
+        OperatingPanel.SetActive(inZone);//inZoneがtrueならPanelを表示、farseなら非表示
+        PanelHaikei.SetActive(inZone);
     }
 }

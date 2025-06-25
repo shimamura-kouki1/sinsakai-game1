@@ -36,6 +36,6 @@ public class Enemy : MonoBehaviour
 
     public void PlayerDamage(Player player)
     {
-        player.Damage(_attackPower);        //Moveの中にあるDamageのメッソドを持ってきて、引数の中に自分の攻撃力を入れる
+        player.Damage(_attackPower);        //Playerの中にあるDamageのメッソドを持ってきて、引数の中に自分の攻撃力を入れる
     }
 }

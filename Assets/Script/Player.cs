@@ -67,6 +67,7 @@ namespace Text.Inheritance
         public void Move()
         {
             _rb.velocity = new Vector2(_inputDirection.x * _Speed, _rb.velocity.y);     //_OnMoveで代入した_inputDirection.xを_Speedにかけることで左右移動ができる
+            //transform.rotation = Quaternion.Euler(0,180,0);                           アニメーションの反転
 
             if (Time.timeScale == 0f)
             {
@@ -119,12 +120,13 @@ namespace Text.Inheritance
         }
 
         private void OnTriggerEnter2D (Collider2D collider)//オブジェクトがすり抜けた時の処理
-        {    
-            { if(collider.gameObject.tag == ("Coin"))           //Coinをすり抜けたら
+        {
 
-                FindObjectOfType<MainManeger>().Score();        //MainManegerからScoreを探し出す
-                                                                  
-                MainManeger.score += 100;                       //scoreに100加算する
+            if (collider.gameObject.tag == ("Coin"))           //Coinをすり抜けたら
+            {
+                FindObjectOfType<MainManeger>().Score();     //MainManegerからScoreを探し出す
+                MainManeger.score += 100;                    //scoreに100加算する
+            }                                           
 
                 if (CoinSound != null)
                 {
@@ -133,7 +135,7 @@ namespace Text.Inheritance
                     Destroy(collider.gameObject);
                 }
        
-            }
+            
         }
 
         private void HideParentOnly(GameObject parent)
