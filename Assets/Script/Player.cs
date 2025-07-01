@@ -101,7 +101,7 @@ namespace Text.Inheritance
         
         private void OnCollisionEnter2D(Collision2D collision)      //Collision2D ->    è’ìÀÇµÇΩÇ∆Ç´Ç…é¿çs
         {
-            if(collision.gameObject.tag == "Enemy")
+            if(collision.gameObject.tag == "Enemy")     
             {
                 HitEnemy(collision.gameObject);
             }
