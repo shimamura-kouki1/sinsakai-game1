@@ -11,8 +11,15 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 /[Aa]ssets/[Rr]esources/[Cc]ainos/[Pp]ixel [Aa]rt [Pp]latformer - [Vv]illage [Pp]rops/
+<<<<<<< HEAD
 /[Aa]ssets/[Pp]olyMeshWorld/
 /[Aa]ssets/[Ss]imple2DPlatformerBE2/
+=======
+/[Aa]ssets/[Pp]olyMeshWorld/2D SideScroller Pixel Art Kit Free/
+/[aa]ssets/[Ss]imple 2D Platformer BE2/
+/[Aa]ssets/[Gg]azou/
+/[Aa]ssets/[Ss]E/
+>>>>>>> 24dff8e0009aeab8ade7d182bb899214670d9b96
 *.log
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.

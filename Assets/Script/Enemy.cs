@@ -23,17 +23,19 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _Move();
+        _rig.velocity = new Vector2(Vector2.left.x * _moveSpeed * Time.timeScale, _rig.velocity.y);
+   
+        if (transform.position.y < -15)
+        {
+            Destroy(gameObject);
+        }
+        //float sin = Mathf.Sin(Time.time);
+        //this.transform.position = new Vector3(0, sin, 0);  *Time.deltaTime
     }
 
-    private void _Move()
-    {
-        _rig.velocity = new Vector2(Vector2.left.x * _moveSpeed, _rig.velocity.y);
-    }
 
-    public void PlayerDamage(Move move)
+    public void PlayerDamage(Player player)
     {
-            //Moveの中にあるDamageのメッソドを持ってきて、引数の中に自分の攻撃力を入れる
-        move.Damage(_attackPower);
+        player.Damage(_attackPower);        //Playerの中にあるDamageのメッソドを持ってきて、引数の中に自分の攻撃力を入れる
     }
 }
