@@ -20,7 +20,7 @@ public class SceneChanger: MonoBehaviour
     public void StartGame()//タイトルシーンへ移動
     {
             // "GameScene" は遷移先のシーン名
-            SceneManager.LoadScene("SelectScene");
+            SceneManager.LoadScene("SampleScene");
     }
 
     public void ExitGame()
